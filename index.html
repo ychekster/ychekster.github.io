@@ -389,8 +389,6 @@
       gap: 1.1rem;
     }
 
-    /* Мобильный: рычаг остаётся справа от слотов,
-       чуть компактнее, но без изменения десктопного вида */
     @media (max-width: 460px) {
       .machine {
         padding: 0.9rem 0.9rem 1rem;
@@ -640,7 +638,7 @@
       }
     }
 
-    /* History (slots & roulette) */
+    /* History (slots & roulette & rocket) */
 
     .history {
       margin-top: 0.9rem;
@@ -684,7 +682,6 @@
       filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.9));
     }
 
-    /* точка истории рулетки */
     .history-dot {
       display: inline-block;
       width: 12px;
@@ -924,7 +921,6 @@
         0 0 18px rgba(248, 250, 252, 1);
     }
 
-    /* Мобильный: кнопки рулетки в колонку, текст всегда внутри */
     @media (max-width: 480px) {
       .roulette-colors {
         flex-direction: column;
@@ -943,6 +939,215 @@
 
     .roulette-current-bet strong {
       color: #e5e7eb;
+    }
+
+    /* Rocket game */
+
+    .rocket-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.3rem;
+    }
+
+    .rocket-screen-shell {
+      border-radius: 1.1rem;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 1));
+      padding: 0.55rem 0.6rem 0.65rem;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 1),
+        0 18px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .rocket-screen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .rocket-screen-header strong {
+      color: #e5e7eb;
+    }
+
+    .rocket-screen-header-time {
+      display: none;
+    }
+
+    .rocket-screen {
+      position: relative;
+      height: 150px;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+      overflow: hidden;
+    }
+
+    @media (max-width: 480px) {
+      .rocket-screen {
+        height: 140px;
+      }
+    }
+
+    .rocket-platform {
+      position: absolute;
+      bottom: 8px;
+      width: 18%;
+      height: 14px;
+      border-radius: 999px;
+      background:
+        linear-gradient(145deg, #0f172a, #020617);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 1),
+        0 6px 10px rgba(15, 23, 42, 0.9);
+    }
+
+    .rocket-platform--left {
+      left: 5%;
+    }
+
+    .rocket-platform--right {
+      right: 5%;
+    }
+
+    .rocket {
+      position: absolute;
+      bottom: 22px;
+      left: 14%;
+      font-size: 2rem;
+      transform-origin: center;
+      transition: left 0.99s ease-out, bottom 0.99s ease-out, transform 0.198s ease-out;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+    }
+
+    .rocket--takeoff {
+      transform: translateY(0) rotate(-8deg);
+    }
+
+    .rocket--cruise {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    .rocket--landing {
+      transform: translateY(0) rotate(4deg);
+    }
+
+    .rocket--exploded {
+      animation: rocketExplode 0.44s ease-out;
+    }
+
+    @keyframes rocketExplode {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      40% { transform: translateY(-6px) scale(1.08); opacity: 1; }
+      100% { transform: translateY(6px) scale(0.4); opacity: 0; }
+    }
+
+    .rocket-object {
+      position: absolute;
+      bottom: 30%;
+      padding: 0.15rem 0.42rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 1),
+        0 8px 16px rgba(15, 23, 42, 0.9);
+      transform: translateX(0);
+    }
+
+    .rocket-object--mult {
+      border-color: rgba(56, 189, 248, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.3), #020617);
+    }
+
+    .rocket-object--add {
+      border-color: rgba(250, 204, 21, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(250, 204, 21, 0.3), #020617);
+    }
+
+    .rocket-object--bomb {
+      border-color: rgba(248, 113, 113, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(248, 113, 113, 0.35), #020617);
+    }
+
+    .rocket-object--hit {
+      box-shadow:
+        0 0 0 1px rgba(248, 250, 252, 1),
+        0 0 14px rgba(248, 250, 252, 1);
+    }
+
+    .rocket-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .rocket-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .rocket-status {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .rocket-status strong {
+      color: #e5e7eb;
+    }
+
+    .rocket-stake-label {
+      white-space: nowrap;
+    }
+
+    .rocket-stake-value {
+      font-variant-numeric: tabular-nums;
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .rocket-start-btn {
+      flex: 0 0 auto;
+      font-size: 0.8rem;
+      padding-inline: 1.2rem;
+    }
+
+    .rocket-start-btn[disabled] {
+      opacity: 0.65;
+      cursor: default;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 1),
+        0 8px 16px rgba(15, 23, 42, 0.8);
+      filter: none;
+    }
+
+    @media (max-width: 520px) {
+      .rocket-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .rocket-start-btn {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     /* Confetti */
@@ -1143,7 +1348,8 @@
       filter: brightness(1.03);
     }
 
-    /* Мобильные оптимизации анимаций (ПК остаётся как раньше) */
+    /* Mobile optimizations */
+
     @media (max-width: 640px) {
       .reel-window {
         transition: transform 0.12s linear;
@@ -1286,7 +1492,6 @@
           <div class="roulette-wheel-shell">
             <div class="roulette-wheel" id="rouletteWheel">
               <div class="roulette-track" id="rouletteTrack">
-                <!-- 15 слотов: красный/синий + 1 зелёный -->
                 <div class="roulette-slot roulette-slot--red" data-color="red"></div>
                 <div class="roulette-slot roulette-slot--blue" data-color="blue"></div>
                 <div class="roulette-slot roulette-slot--red" data-color="red"></div>
@@ -1383,10 +1588,86 @@
           </div>
         </div>
 
-        <!-- История выпадения слотов рулетки -->
         <section class="history" aria-label="История рулетки">
           <div class="history-label">Рулетка</div>
           <div class="history-list" id="rouletteHistoryList"></div>
+        </section>
+      </section>
+
+      <!-- Rocket game section -->
+      <section class="game-section" id="rocketSection">
+        <div class="game-header-row">
+          <div class="game-title">Ракетка</div>
+
+          <article class="info-card game-bet-card" aria-label="Ставка для ракетки">
+            <div class="info-card-header">
+              <div class="info-card-label">Ставка</div>
+              <button
+                type="button"
+                class="bet-edit-btn"
+                data-game="rocket"
+                id="rocketBetEditButton"
+              >Изменить</button>
+            </div>
+            <div class="info-card-value">
+              <span id="rocketBetValue">10</span>
+              <span class="info-card-currency">$</span>
+            </div>
+            <div class="info-card-row-bottom">
+              <button
+                type="button"
+                class="bet-step-btn"
+                data-step="-1"
+                data-game="rocket"
+              >−</button>
+              <button
+                type="button"
+                class="bet-step-btn"
+                data-step="1"
+                data-game="rocket"
+              >+</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="rocket-main">
+          <div class="rocket-screen-shell">
+            <div class="rocket-screen-header">
+              <div class="rocket-screen-header-time">Полёт: <strong id="rocketFlightTimeLabel">—</strong></div>
+              <div>
+                Текущая ставка:
+                <span class="rocket-stake-value">
+                  <span id="rocketStakeValue">0</span>$
+                </span>
+              </div>
+            </div>
+            <div class="rocket-screen" id="rocketScreen">
+              <div class="rocket-platform rocket-platform--left"></div>
+              <div class="rocket-platform rocket-platform--right"></div>
+              <div class="rocket" id="rocketEmoji">🚀</div>
+              <div id="rocketObjects"></div>
+            </div>
+          </div>
+
+          <div class="rocket-footer">
+            <div class="rocket-footer-left">
+              <div class="rocket-status" id="rocketStatus">
+                Нажмите «Запустить ракетку», чтобы начать полёт.
+              </div>
+            </div>
+            <button
+              type="button"
+              class="topup-btn rocket-start-btn"
+              id="rocketStartButton"
+            >
+              Запустить ракетку
+            </button>
+          </div>
+        </div>
+
+        <section class="history" aria-label="История ракетки">
+          <div class="history-label">Ракетка</div>
+          <div class="history-list" id="rocketHistoryList"></div>
         </section>
       </section>
     </div>
@@ -1418,7 +1699,7 @@
     </div>
   </div>
 
-  <!-- Bet modal (общий для обеих игр) -->
+  <!-- Bet modal (общий для игр) -->
   <div class="modal-backdrop" id="betModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="betTitle">
       <div class="modal-title" id="betTitle">Изменить ставку</div>
@@ -1451,6 +1732,13 @@
       const ROULETTE_ROUND_MS = 10000;
       const ROULETTE_RESULT_SHOW_MS = 3500;
 
+      // Увеличено на 10% для более медленной анимации
+      const ROCKET_MIN_FLIGHT_MS = 22000;
+      const ROCKET_MAX_FLIGHT_MS = 44000;
+
+      const ROCKET_PLATFORM_BOTTOM_PX = 22;
+      const ROCKET_LANE_BOTTOMS = [26, 46, 66]; // проценты от высоты экрана для трёх уровней
+
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
       const state = {
@@ -1469,8 +1757,27 @@
           userBet: null, // { color, amount, roundId }
           history: [] // массив цветов: "red" | "blue" | "green"
         },
-        activeBetGame: null // "slots" | "roulette" | null
+        rocket: {
+          bet: 10,
+          running: false,
+          history: [],
+          currentStake: 0,
+          initialBet: 0,
+          flightDurationMs: 0,
+          flightStartTs: 0,
+          lastFrameTs: 0,
+          screenWidth: 0,
+          hitX: 0,
+          animationFrameId: null,
+          spawnTimeoutId: null,
+          landingStarted: false,
+          currentLane: null,
+          targetLane: null
+        },
+        activeBetGame: null // "slots" | "roulette" | "rocket" | null
       };
+
+      let rocketObjects = [];
 
       // Запрет двойного тап-зума и жестов масштабирования на мобильных
       if (isMobile) {
@@ -1517,6 +1824,18 @@
       );
       const rouletteHistoryList = document.getElementById("rouletteHistoryList");
 
+      // Rocket
+      const rocketBetValueEl = document.getElementById("rocketBetValue");
+      const rocketBetEditButton = document.getElementById("rocketBetEditButton");
+      const rocketStartButton = document.getElementById("rocketStartButton");
+      const rocketScreen = document.getElementById("rocketScreen");
+      const rocketObjectsContainer = document.getElementById("rocketObjects");
+      const rocketStatusEl = document.getElementById("rocketStatus");
+      const rocketStakeValueEl = document.getElementById("rocketStakeValue");
+      const rocketFlightTimeLabel = document.getElementById("rocketFlightTimeLabel");
+      const rocketHistoryList = document.getElementById("rocketHistoryList");
+      const rocketEmojiEl = document.getElementById("rocketEmoji");
+
       // Bet controls
       const betStepButtons = Array.from(
         document.querySelectorAll(".bet-step-btn")
@@ -1553,6 +1872,10 @@
         rouletteBetValueEl.textContent = formatMoney(state.roulette.bet);
       }
 
+      function updateRocketBetDisplay() {
+        rocketBetValueEl.textContent = formatMoney(state.rocket.bet);
+      }
+
       function updateLeverAvailability() {
         const canSlots =
           state.balance >= MIN_BET &&
@@ -1562,12 +1885,24 @@
         slotsLeverButton.disabled = !canSlots || state.slots.spinning;
       }
 
+      function updateRocketControlsAvailability() {
+        const canRocket =
+          !state.rocket.running &&
+          state.balance >= MIN_BET &&
+          state.rocket.bet >= MIN_BET &&
+          state.rocket.bet <= state.balance;
+
+        rocketStartButton.disabled = !canRocket;
+      }
+
       function syncDisplays() {
         updateBalanceDisplay();
         updateSlotsBetDisplay();
         updateRouletteBetDisplay();
+        updateRocketBetDisplay();
         updateLeverAvailability();
         updateRouletteCurrentBetText();
+        updateRocketControlsAvailability();
       }
 
       function flashLowBalance() {
@@ -1996,6 +2331,411 @@
         }, ROULETTE_RESULT_SHOW_MS);
       }
 
+      // Rocket helpers
+
+      function updateRocketStakeDisplay() {
+        rocketStakeValueEl.textContent = formatMoney(state.rocket.currentStake);
+      }
+
+      function updateRocketFlightTimeLabel() {
+        if (!state.rocket.running) {
+          rocketFlightTimeLabel.textContent = "—";
+          return;
+        }
+        const totalSec = Math.round(state.rocket.flightDurationMs / 1000);
+        rocketFlightTimeLabel.textContent = totalSec + " с";
+      }
+
+      function clearRocketObjects() {
+        rocketObjects.forEach((obj) => {
+          if (obj.el && obj.el.parentNode) obj.el.parentNode.removeChild(obj.el);
+        });
+        rocketObjects = [];
+        rocketObjectsContainer.innerHTML = "";
+      }
+
+      function pushRocketHistory(outcome, payout, bet) {
+        state.rocket.history.unshift({ outcome, payout, bet });
+        if (state.rocket.history.length > 10) {
+          state.rocket.history.pop();
+        }
+
+        rocketHistoryList.innerHTML = "";
+        const mapIcon = {
+          profit: "🟢",
+          breakeven: "⚪",
+          partial_loss: "🟡",
+          zero: "💣",
+          exploded: "💥"
+        };
+
+        state.rocket.history.forEach((entry) => {
+          const span = document.createElement("span");
+          span.className = "history-item";
+          const icon = mapIcon[entry.outcome] || "❔";
+          span.textContent = icon;
+          span.title =
+            "Ставка: " +
+            formatMoney(entry.bet) +
+            "$, выплата: " +
+            formatMoney(entry.payout) +
+            "$";
+          rocketHistoryList.appendChild(span);
+        });
+      }
+
+      function randomRocketObjectConfig() {
+        const r = Math.random();
+        if (r < 0.4) {
+          // плюсы
+          const rr = Math.random();
+          if (rr < 0.6) return { type: "add", value: 10, label: "+10" };
+          if (rr < 0.9) return { type: "add", value: 50, label: "+50" };
+          return { type: "add", value: 100, label: "+100" };
+        }
+        if (r < 0.8) {
+          // иксы
+          const rr = Math.random();
+          if (rr < 0.6) return { type: "mult", value: 2, label: "x2" };
+          if (rr < 0.85) return { type: "mult", value: 4, label: "x4" };
+          if (rr < 0.97) return { type: "mult", value: 5, label: "x5" };
+          return { type: "mult", value: 10, label: "x10" };
+        }
+        // бомба
+        const factor = Math.random() * 0.9; // 0..0.9
+        return { type: "bomb", value: factor, label: "💣" };
+      }
+
+      function spawnRocketObject() {
+        if (!state.rocket.running) return;
+        if (!state.rocket.screenWidth) return;
+
+        const cfg = randomRocketObjectConfig();
+        const el = document.createElement("div");
+        el.className = "rocket-object";
+        if (cfg.type === "mult") el.classList.add("rocket-object--mult");
+        if (cfg.type === "add") el.classList.add("rocket-object--add");
+        if (cfg.type === "bomb") el.classList.add("rocket-object--bomb");
+        el.textContent = cfg.label;
+        rocketObjectsContainer.appendChild(el);
+
+        const startX = state.rocket.screenWidth + 40;
+        // немного замедлена скорость объектов
+        const baseSpeed = state.rocket.screenWidth * (0.25 + Math.random() * 0.25);
+        const speed = baseSpeed * 0.9;
+
+        const laneIndex = Math.floor(Math.random() * ROCKET_LANE_BOTTOMS.length);
+        el.style.bottom = ROCKET_LANE_BOTTOMS[laneIndex] + "%";
+
+        const obj = {
+          el,
+          type: cfg.type,
+          value: cfg.value,
+          x: startX,
+          speed,
+          applied: false,
+          lane: laneIndex
+        };
+        rocketObjects.push(obj);
+      }
+
+      function scheduleNextRocketSpawn() {
+        if (!state.rocket.running) return;
+        // увеличена задержка на 10%
+        const delay = 770 + Math.random() * 990; // ~0.77–1.76с
+        state.rocket.spawnTimeoutId = setTimeout(() => {
+          spawnRocketObject();
+          scheduleNextRocketSpawn();
+        }, delay);
+      }
+
+      function applyRocketModifier(obj) {
+        if (obj.applied) return;
+        obj.applied = true;
+        if (obj.el) obj.el.classList.add("rocket-object--hit");
+
+        let stake = state.rocket.currentStake;
+
+        if (obj.type === "mult") {
+          stake = Math.floor(stake * obj.value);
+          rocketStatusEl.innerHTML =
+            "Попадание по <strong>" + obj.value + "x</strong>.";
+        } else if (obj.type === "add") {
+          stake = Math.max(0, stake + obj.value);
+          rocketStatusEl.innerHTML =
+            "Попадание по <strong>+" + obj.value + "$</strong>.";
+        } else if (obj.type === "bomb") {
+          stake = Math.floor(stake * obj.value);
+          if (stake <= 0) {
+            rocketStatusEl.innerHTML =
+              "Бомба <strong>обнулила ставку</strong>. Шансов не осталось.";
+          } else {
+            const factorPercent = Math.round(obj.value * 100);
+            rocketStatusEl.innerHTML =
+              "Бомба уменьшила ставку до <strong>" +
+              factorPercent +
+              "%</strong>.";
+          }
+        }
+
+        if (stake < 0) stake = 0;
+        state.rocket.currentStake = stake;
+        updateRocketStakeDisplay();
+      }
+
+      function finishRocketRound(exploded) {
+        const finalStake = Math.max(0, Math.floor(state.rocket.currentStake));
+        const bet = state.rocket.initialBet;
+
+        let payout = 0;
+        let outcome = "zero";
+
+        if (finalStake <= 0) {
+          outcome = "zero";
+          payout = 0;
+          if (!exploded) {
+            rocketStatusEl.innerHTML =
+              "Ставка <strong>обнулилась</strong> во время полёта. Вы ничего не получили.";
+          }
+        } else if (exploded) {
+          outcome = "exploded";
+          payout = 0;
+          rocketStatusEl.innerHTML =
+            "При посадке ракета <strong>взорвалась</strong>. Вы ничего не получили.";
+        } else {
+          payout = finalStake;
+          state.balance += payout;
+
+          if (payout > bet) {
+            outcome = "profit";
+            rocketStatusEl.innerHTML =
+              "Ракета успешно села. Вы выиграли: <strong>+" +
+              formatMoney(payout - bet) +
+              "$</strong> (выплата " +
+              formatMoney(payout) +
+              "$).";
+            createConfetti({
+              count: 120,
+              duration: 2300,
+              power: 1.1,
+              big: false
+            });
+            createEmojiRain("🚀", 16);
+          } else if (payout === bet) {
+            outcome = "breakeven";
+            rocketStatusEl.innerHTML =
+              "Ракета успешно села. Вы вышли в <strong>ноль</strong> (выплата " +
+              formatMoney(payout) +
+              "$).";
+          } else {
+            outcome = "partial_loss";
+            rocketStatusEl.innerHTML =
+              "Ракета успешно села. Вы вернули только часть ставки: <strong>" +
+              formatMoney(payout) +
+              "$</strong>.";
+          }
+        }
+
+        state.rocket.running = false;
+        state.rocket.landingStarted = false;
+        state.rocket.currentStake = finalStake;
+        state.rocket.currentLane = null;
+        state.rocket.targetLane = null;
+
+        if (state.rocket.spawnTimeoutId) {
+          clearTimeout(state.rocket.spawnTimeoutId);
+          state.rocket.spawnTimeoutId = null;
+        }
+        if (state.rocket.animationFrameId) {
+          cancelAnimationFrame(state.rocket.animationFrameId);
+          state.rocket.animationFrameId = null;
+        }
+
+        rocketEmojiEl.classList.remove(
+          "rocket--takeoff",
+          "rocket--cruise",
+          "rocket--landing",
+          "rocket--exploded"
+        );
+
+        if (exploded) {
+          rocketEmojiEl.textContent = "💥";
+          rocketEmojiEl.classList.add("rocket--exploded");
+        } else {
+          rocketEmojiEl.textContent = "🚀";
+        }
+
+        clearRocketObjects();
+        updateRocketStakeDisplay();
+        syncDisplays();
+        pushRocketHistory(outcome, payout, bet);
+      }
+
+      function startRocketLanding() {
+        if (state.rocket.landingStarted) return;
+        state.rocket.landingStarted = true;
+
+        if (state.rocket.spawnTimeoutId) {
+          clearTimeout(state.rocket.spawnTimeoutId);
+          state.rocket.spawnTimeoutId = null;
+        }
+
+        rocketStatusEl.innerHTML = "Ракета заходит на посадку...";
+        rocketEmojiEl.classList.remove("rocket--cruise");
+        rocketEmojiEl.classList.add("rocket--landing");
+
+        rocketEmojiEl.style.left = "82%";
+        rocketEmojiEl.style.bottom = ROCKET_PLATFORM_BOTTOM_PX + "px";
+        state.rocket.currentLane = null;
+        state.rocket.targetLane = null;
+
+        const onTransitionEnd = function (e) {
+          if (e.propertyName !== "left") return;
+          rocketEmojiEl.removeEventListener("transitionend", onTransitionEnd);
+
+          const exploded = Math.random() < 0.8;
+          finishRocketRound(exploded);
+        };
+
+        rocketEmojiEl.addEventListener("transitionend", onTransitionEnd);
+      }
+
+      function rocketAnimationStep(timestamp) {
+        if (!state.rocket.running) return;
+
+        if (!state.rocket.lastFrameTs) {
+          state.rocket.lastFrameTs = timestamp;
+          state.rocket.animationFrameId = requestAnimationFrame(rocketAnimationStep);
+          return;
+        }
+
+        const dt = (timestamp - state.rocket.lastFrameTs) / 1000;
+        state.rocket.lastFrameTs = timestamp;
+
+        const width = state.rocket.screenWidth || rocketScreen.getBoundingClientRect().width;
+        state.rocket.screenWidth = width;
+        const hitX = state.rocket.hitX || width * 0.3;
+        state.rocket.hitX = hitX;
+
+        // Автоподбор уровня для следующего объекта по курсу
+        if (!state.rocket.landingStarted && rocketObjects.length > 0) {
+          const candidates = rocketObjects.filter(
+            (obj) => !obj.applied && obj.x > hitX && obj.x < hitX + width * 0.6
+          );
+          if (candidates.length > 0) {
+            candidates.sort((a, b) => a.x - b.x);
+            const target = candidates[0];
+            const laneIndex = target.lane;
+            if (typeof laneIndex === "number" && laneIndex !== state.rocket.currentLane) {
+              state.rocket.currentLane = laneIndex;
+              rocketEmojiEl.style.bottom = ROCKET_LANE_BOTTOMS[laneIndex] + "%";
+            }
+          }
+        }
+
+        rocketObjects.forEach((obj) => {
+          obj.x -= obj.speed * dt;
+          const leftPercent = (obj.x / width) * 100;
+          obj.el.style.left = leftPercent + "%";
+
+          if (!obj.applied && obj.x <= hitX) {
+            if (!state.rocket.landingStarted && obj.lane === state.rocket.currentLane) {
+              applyRocketModifier(obj);
+            } else {
+              obj.applied = true;
+            }
+          }
+        });
+
+        rocketObjects = rocketObjects.filter((obj) => {
+          if (obj.x < -60) {
+            if (obj.el && obj.el.parentNode) {
+              obj.el.parentNode.removeChild(obj.el);
+            }
+            return false;
+          }
+          return true;
+        });
+
+        const elapsed = timestamp - state.rocket.flightStartTs;
+        if (elapsed >= state.rocket.flightDurationMs && !state.rocket.landingStarted) {
+          startRocketLanding();
+        }
+
+        state.rocket.animationFrameId = requestAnimationFrame(rocketAnimationStep);
+      }
+
+      function startRocketGame() {
+        if (state.rocket.running) return;
+
+        const bet = state.rocket.bet;
+        if (bet <= 0 || bet > state.balance) {
+          flashLowBalance();
+          updateRocketControlsAvailability();
+          return;
+        }
+
+        // Респавн ракеты на левой платформе перед каждым запуском
+        rocketEmojiEl.textContent = "🚀";
+        rocketEmojiEl.classList.remove(
+          "rocket--takeoff",
+          "rocket--cruise",
+          "rocket--landing",
+          "rocket--exploded"
+        );
+        rocketEmojiEl.style.transition = "none";
+        rocketEmojiEl.style.left = "14%";
+        rocketEmojiEl.style.bottom = ROCKET_PLATFORM_BOTTOM_PX + "px";
+        void rocketEmojiEl.offsetWidth; // форс рефлоу
+        rocketEmojiEl.style.transition = "";
+
+        state.rocket.currentLane = null;
+        state.rocket.targetLane = null;
+
+        state.balance -= bet;
+        state.rocket.running = true;
+        state.rocket.initialBet = bet;
+        state.rocket.currentStake = bet;
+        state.rocket.flightDurationMs =
+          ROCKET_MIN_FLIGHT_MS +
+          Math.random() * (ROCKET_MAX_FLIGHT_MS - ROCKET_MIN_FLIGHT_MS);
+        state.rocket.flightStartTs = performance.now();
+        state.rocket.lastFrameTs = 0;
+        state.rocket.landingStarted = false;
+
+        clearRocketObjects();
+        updateRocketStakeDisplay();
+        updateRocketFlightTimeLabel();
+        syncDisplays();
+
+        const screenRect = rocketScreen.getBoundingClientRect();
+        state.rocket.screenWidth = screenRect.width;
+        state.rocket.hitX = screenRect.width * 0.3;
+
+        rocketEmojiEl.classList.add("rocket--takeoff");
+
+        const centerLeft = 32;
+        const centerLaneIndex = 1;
+        const centerBottom = ROCKET_LANE_BOTTOMS[centerLaneIndex];
+
+        setTimeout(() => {
+          rocketEmojiEl.style.left = centerLeft + "%";
+          rocketEmojiEl.style.bottom = centerBottom + "%";
+          state.rocket.currentLane = centerLaneIndex;
+        }, 20);
+
+        setTimeout(() => {
+          rocketEmojiEl.classList.remove("rocket--takeoff");
+          rocketEmojiEl.classList.add("rocket--cruise");
+        }, 1100);
+
+        rocketStatusEl.innerHTML = "Ракета в полёте. Собираем множители и бонусы, избегаем бомб.";
+
+        scheduleNextRocketSpawn();
+        state.rocket.animationFrameId = requestAnimationFrame(rocketAnimationStep);
+        updateRocketControlsAvailability();
+      }
+
       // Deposit modal
 
       function openDepositModal() {
@@ -2029,6 +2769,9 @@
         if (state.roulette.bet > state.balance) {
           state.roulette.bet = Math.max(MIN_BET, state.balance);
         }
+        if (state.rocket.bet > state.balance) {
+          state.rocket.bet = Math.max(MIN_BET, state.balance);
+        }
 
         syncDisplays();
         closeDepositModal();
@@ -2042,8 +2785,11 @@
         betModal.setAttribute("aria-hidden", "false");
         betInput.classList.remove("modal-input--error");
 
-        const currentBet =
-          gameKey === "slots" ? state.slots.bet : state.roulette.bet;
+        let currentBet = MIN_BET;
+        if (gameKey === "slots") currentBet = state.slots.bet;
+        else if (gameKey === "roulette") currentBet = state.roulette.bet;
+        else if (gameKey === "rocket") currentBet = state.rocket.bet;
+
         betInput.value = currentBet.toString();
         setTimeout(() => {
           betInput.focus();
@@ -2071,6 +2817,8 @@
           state.slots.bet = Math.max(MIN_BET, amount);
         } else if (state.activeBetGame === "roulette") {
           state.roulette.bet = Math.max(MIN_BET, amount);
+        } else if (state.activeBetGame === "rocket") {
+          state.rocket.bet = Math.max(MIN_BET, amount);
         }
 
         syncDisplays();
@@ -2080,6 +2828,7 @@
       // Events
 
       slotsLeverButton.addEventListener("click", spinSlots);
+      rocketStartButton.addEventListener("click", startRocketGame);
 
       document.addEventListener("keydown", (e) => {
         if ((e.key === " " || e.key === "Enter") && !state.slots.spinning) {
@@ -2107,10 +2856,15 @@
         btn.addEventListener("click", () => {
           const step = Number(btn.getAttribute("data-step")) || 0;
           const game = btn.getAttribute("data-game");
-          if (game !== "slots" && game !== "roulette") return;
+          if (game !== "slots" && game !== "roulette" && game !== "rocket") return;
 
           let currentBet =
-            game === "slots" ? state.slots.bet : state.roulette.bet;
+            game === "slots"
+              ? state.slots.bet
+              : game === "roulette"
+              ? state.roulette.bet
+              : state.rocket.bet;
+
           let nextBet = currentBet + step;
 
           if (nextBet < MIN_BET) nextBet = MIN_BET;
@@ -2121,8 +2875,13 @@
               MIN_BET,
               Math.min(nextBet, state.balance || MIN_BET)
             );
-          } else {
+          } else if (game === "roulette") {
             state.roulette.bet = Math.max(
+              MIN_BET,
+              Math.min(nextBet, state.balance || MIN_BET)
+            );
+          } else {
+            state.rocket.bet = Math.max(
               MIN_BET,
               Math.min(nextBet, state.balance || MIN_BET)
             );
@@ -2135,6 +2894,9 @@
       slotsBetEditButton.addEventListener("click", () => openBetModal("slots"));
       rouletteBetEditButton.addEventListener("click", () =>
         openBetModal("roulette")
+      );
+      rocketBetEditButton.addEventListener("click", () =>
+        openBetModal("rocket")
       );
 
       betCancel.addEventListener("click", closeBetModal);
@@ -2169,6 +2931,10 @@
       slotsReelsEls.forEach((reel) => {
         setReelSymbol(reel, randomSymbol());
       });
+
+      state.rocket.currentStake = 0;
+      updateRocketStakeDisplay();
+      updateRocketFlightTimeLabel();
 
       syncDisplays();
       renderRouletteHistory();
