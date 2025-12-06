@@ -389,11 +389,19 @@
       gap: 1.1rem;
     }
 
+    /* Мобильный: рычаг остаётся справа от слотов,
+       чуть компактнее, но без изменения десктопного вида */
     @media (max-width: 460px) {
+      .machine {
+        padding: 0.9rem 0.9rem 1rem;
+      }
       .machine-layout {
-        grid-template-columns: minmax(0, 1fr);
-        row-gap: 1rem;
-        justify-items: center;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.7fr);
+        align-items: center;
+        column-gap: 0.7rem;
+      }
+      .lever {
+        min-height: 100px;
       }
     }
 
@@ -862,6 +870,11 @@
       display: flex;
       align-items: center;
       gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .roulette-color-text {
+      white-space: nowrap;
     }
 
     .roulette-chip {
@@ -869,6 +882,7 @@
       height: 10px;
       border-radius: 999px;
       box-shadow: 0 0 0 1px rgba(15, 23, 42, 1);
+      flex-shrink: 0;
     }
 
     .roulette-chip--red {
@@ -887,6 +901,7 @@
       font-size: 0.7rem;
       color: var(--text-muted);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .roulette-color-btn:hover {
@@ -907,6 +922,18 @@
       box-shadow:
         0 0 0 1px rgba(248, 250, 252, 0.9),
         0 0 18px rgba(248, 250, 252, 1);
+    }
+
+    /* Мобильный: кнопки рулетки в колонку, текст всегда внутри */
+    @media (max-width: 480px) {
+      .roulette-colors {
+        flex-direction: column;
+      }
+      .roulette-color-btn {
+        flex: 1 1 auto;
+        width: 100%;
+        justify-content: space-between;
+      }
     }
 
     .roulette-current-bet {
@@ -1295,7 +1322,7 @@
               >
                 <div class="roulette-color-label">
                   <span class="roulette-chip roulette-chip--red"></span>
-                  <span>Красный</span>
+                  <span class="roulette-color-text">Красный</span>
                 </div>
                 <span class="roulette-color-mult">x2</span>
               </button>
@@ -1306,7 +1333,7 @@
               >
                 <div class="roulette-color-label">
                   <span class="roulette-chip roulette-chip--blue"></span>
-                  <span>Синий</span>
+                  <span class="roulette-color-text">Синий</span>
                 </div>
                 <span class="roulette-color-mult">x2</span>
               </button>
@@ -1317,7 +1344,7 @@
               >
                 <div class="roulette-color-label">
                   <span class="roulette-chip roulette-chip--green"></span>
-                  <span>Зелёный</span>
+                  <span class="roulette-color-text">Зелёный</span>
                 </div>
                 <span class="roulette-color-mult">x50</span>
               </button>
