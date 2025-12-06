@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Эмодзи-слоты и Рулетка</title>
   <style>
     :root {
@@ -1142,6 +1142,34 @@
     .modal-btn--primary:hover {
       filter: brightness(1.03);
     }
+
+    /* Мобильные оптимизации анимаций (ПК остаётся как раньше) */
+    @media (max-width: 640px) {
+      .reel-window {
+        transition: transform 0.12s linear;
+      }
+
+      .reel--spinning .reel-window {
+        animation-duration: 0.18s;
+      }
+
+      .machine--jackpot {
+        animation-duration: 0.7s, 1s;
+      }
+
+      .machine--miniwin {
+        animation: machineShake 0.38s ease-out;
+      }
+
+      .confetti-piece {
+        animation-timing-function: cubic-bezier(0.25, 0.8, 0.4, 1);
+      }
+
+      .confetti-emoji {
+        font-size: 1.5rem;
+        animation-duration: 1.7s;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1424,6 +1452,8 @@
       const ROULETTE_ROUND_MS = 10000;
       const ROULETTE_RESULT_SHOW_MS = 3500;
 
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
       const state = {
         balance: INITIAL_BALANCE,
         slots: {
@@ -1442,6 +1472,21 @@
         },
         activeBetGame: null // "slots" | "roulette" | null
       };
+
+      // Запрет двойного тап-зума и жестов масштабирования на мобильных
+      if (isMobile) {
+        document.addEventListener(
+          "dblclick",
+          function (e) {
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        document.addEventListener("gesturestart", function (e) {
+          e.preventDefault();
+        });
+      }
 
       // DOM references
 
@@ -1550,7 +1595,11 @@
           "#facc15"
         ];
 
-        for (let i = 0; i < count; i++) {
+        const density = isMobile ? 0.6 : 1;
+        const countReal = Math.max(20, Math.round(count * density));
+        const durationBase = isMobile ? duration * 0.9 : duration;
+
+        for (let i = 0; i < countReal; i++) {
           const el = document.createElement("div");
           el.className = "confetti-piece" + (big ? " confetti-piece--big" : "");
 
@@ -1558,7 +1607,7 @@
           const drift = (Math.random() - 0.5) * 40 * power;
           const delay = Math.random() * 0.6;
           const localDuration =
-            duration + Math.random() * 600 * (0.7 + power * 0.3);
+            durationBase + Math.random() * 600 * (0.7 + power * 0.3);
 
           el.style.left = start + "vw";
           el.style.setProperty("--x", drift + "vw");
@@ -1572,7 +1621,11 @@
       }
 
       function createEmojiRain(symbol = "🎉", amount = 24) {
-        for (let i = 0; i < amount; i++) {
+        const amountReal = isMobile
+          ? Math.max(8, Math.round(amount * 0.65))
+          : amount;
+
+        for (let i = 0; i < amountReal; i++) {
           const el = document.createElement("div");
           el.className = "confetti-emoji";
           el.textContent = symbol;
